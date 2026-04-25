@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/lib",
+  "command": "/usr/bin/c++ -Dordenamiento_lib_EXPORTS -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src  -fPIC -std=gnu++17 -fPIC -Wall -Wextra -o CMakeFiles/ordenamiento_lib.dir/src/sorting.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/sorting.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/sorting.cpp",
+  "output": "lib/CMakeFiles/ordenamiento_lib.dir/src/sorting.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/OrdenarEnteros.dir/main.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp",
+  "output": "app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp",
+  "output": "examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp",
+  "output": "examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp",
+  "output": "examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o"
+}
+]

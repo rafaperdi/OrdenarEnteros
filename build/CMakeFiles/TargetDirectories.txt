@@ -1,0 +1,13 @@
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/lib/CMakeFiles/ordenamiento_lib.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/lib/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/lib/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app/CMakeFiles/OrdenarEnteros.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo1_basico.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo2_strings.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo3_objetos.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/rebuild_cache.dir
