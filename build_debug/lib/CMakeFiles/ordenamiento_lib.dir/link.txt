@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fPIC -g -g -O0 -Wl,--dependency-file=CMakeFiles/ordenamiento_lib.dir/link.d -shared -Wl,-soname,libordenamiento_lib.so.1 -o libordenamiento_lib.so.1.0.0 CMakeFiles/ordenamiento_lib.dir/src/sorting.cpp.o

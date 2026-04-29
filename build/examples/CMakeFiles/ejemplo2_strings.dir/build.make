@@ -76,15 +76,15 @@ examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o: examples/CMakeF
 examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o: /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp
 examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o: examples/CMakeFiles/ejemplo2_strings.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -MF CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o.d -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -MF CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o.d -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp
 
 examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.i"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp > CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.i
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp > CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.i
 
 examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.s"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.s
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.s
 
 # Object files for target ejemplo2_strings
 ejemplo2_strings_OBJECTS = \

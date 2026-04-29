@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wl,--dependency-file=CMakeFiles/ejemplo4_complejos.dir/link.d CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.o -o ../bin/examples/ejemplo4_complejos  -Wl,-rpath,/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/lib ../lib/libordenamiento_lib.so.1.0.0

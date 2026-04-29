@@ -9,5 +9,16 @@
 /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo1_basico.dir
 /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo2_strings.dir
 /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo3_objetos.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/ejemplo4_complejos.dir
 /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/edit_cache.dir
 /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/tests/CMakeFiles/test_complex.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/tests/CMakeFiles/test_array.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/tests/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/tests/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/CMakeFiles/rebuild_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/googletest/CMakeFiles/gtest.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/googletest/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/_deps/googletest-build/googletest/CMakeFiles/rebuild_cache.dir

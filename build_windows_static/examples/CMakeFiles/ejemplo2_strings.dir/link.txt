@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/ejemplo2_strings.dir/link.d CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -o ../bin/examples/ejemplo2_strings  ../lib/libordenamiento_lib.a

@@ -181,6 +181,71 @@ ejemplo3_objetos/fast:
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo3_objetos.dir/build.make examples/CMakeFiles/ejemplo3_objetos.dir/build
 .PHONY : ejemplo3_objetos/fast
 
+#=============================================================================
+# Target rules for targets named ejemplo4_complejos
+
+# Build rule for target.
+ejemplo4_complejos: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ejemplo4_complejos
+.PHONY : ejemplo4_complejos
+
+# fast build rule for target.
+ejemplo4_complejos/fast:
+	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo4_complejos.dir/build.make examples/CMakeFiles/ejemplo4_complejos.dir/build
+.PHONY : ejemplo4_complejos/fast
+
+#=============================================================================
+# Target rules for targets named test_complex
+
+# Build rule for target.
+test_complex: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_complex
+.PHONY : test_complex
+
+# fast build rule for target.
+test_complex/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_complex.dir/build.make tests/CMakeFiles/test_complex.dir/build
+.PHONY : test_complex/fast
+
+#=============================================================================
+# Target rules for targets named test_array
+
+# Build rule for target.
+test_array: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_array
+.PHONY : test_array
+
+# fast build rule for target.
+test_array/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_array.dir/build.make tests/CMakeFiles/test_array.dir/build
+.PHONY : test_array/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -193,7 +258,12 @@ help:
 	@echo "... ejemplo1_basico"
 	@echo "... ejemplo2_strings"
 	@echo "... ejemplo3_objetos"
+	@echo "... ejemplo4_complejos"
+	@echo "... gtest"
+	@echo "... gtest_main"
 	@echo "... ordenamiento_lib"
+	@echo "... test_array"
+	@echo "... test_complex"
 .PHONY : help
 
 

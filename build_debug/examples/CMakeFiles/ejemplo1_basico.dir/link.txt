@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g -g -O0 -Wl,--dependency-file=CMakeFiles/ejemplo1_basico.dir/link.d CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -o ../bin/examples/ejemplo1_basico  -Wl,-rpath,/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_debug/lib ../lib/libordenamiento_lib.so.1.0.0

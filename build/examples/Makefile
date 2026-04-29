@@ -158,6 +158,20 @@ ejemplo3_objetos/fast:
 	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo3_objetos.dir/build.make examples/CMakeFiles/ejemplo3_objetos.dir/build
 .PHONY : ejemplo3_objetos/fast
 
+# Convenience name for target.
+examples/CMakeFiles/ejemplo4_complejos.dir/rule:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/CMakeFiles/ejemplo4_complejos.dir/rule
+.PHONY : examples/CMakeFiles/ejemplo4_complejos.dir/rule
+
+# Convenience name for target.
+ejemplo4_complejos: examples/CMakeFiles/ejemplo4_complejos.dir/rule
+.PHONY : ejemplo4_complejos
+
+# fast build rule for target.
+ejemplo4_complejos/fast:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo4_complejos.dir/build.make examples/CMakeFiles/ejemplo4_complejos.dir/build
+.PHONY : ejemplo4_complejos/fast
+
 ejemplo1_basico.o: ejemplo1_basico.cpp.o
 .PHONY : ejemplo1_basico.o
 
@@ -230,6 +244,30 @@ ejemplo3_objetos.cpp.s:
 	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo3_objetos.dir/build.make examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.s
 .PHONY : ejemplo3_objetos.cpp.s
 
+ejemplo4_complejos.o: ejemplo4_complejos.cpp.o
+.PHONY : ejemplo4_complejos.o
+
+# target to build an object file
+ejemplo4_complejos.cpp.o:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo4_complejos.dir/build.make examples/CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.o
+.PHONY : ejemplo4_complejos.cpp.o
+
+ejemplo4_complejos.i: ejemplo4_complejos.cpp.i
+.PHONY : ejemplo4_complejos.i
+
+# target to preprocess a source file
+ejemplo4_complejos.cpp.i:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo4_complejos.dir/build.make examples/CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.i
+.PHONY : ejemplo4_complejos.cpp.i
+
+ejemplo4_complejos.s: ejemplo4_complejos.cpp.s
+.PHONY : ejemplo4_complejos.s
+
+# target to generate assembly for a file
+ejemplo4_complejos.cpp.s:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/ejemplo4_complejos.dir/build.make examples/CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.s
+.PHONY : ejemplo4_complejos.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -241,6 +279,7 @@ help:
 	@echo "... ejemplo1_basico"
 	@echo "... ejemplo2_strings"
 	@echo "... ejemplo3_objetos"
+	@echo "... ejemplo4_complejos"
 	@echo "... ejemplo1_basico.o"
 	@echo "... ejemplo1_basico.i"
 	@echo "... ejemplo1_basico.s"
@@ -250,6 +289,9 @@ help:
 	@echo "... ejemplo3_objetos.o"
 	@echo "... ejemplo3_objetos.i"
 	@echo "... ejemplo3_objetos.s"
+	@echo "... ejemplo4_complejos.o"
+	@echo "... ejemplo4_complejos.i"
+	@echo "... ejemplo4_complejos.s"
 .PHONY : help
 
 

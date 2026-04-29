@@ -1,0 +1,68 @@
+[
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/lib",
+  "command": "/usr/bin/c++ -Dordenamiento_lib_EXPORTS -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src  -fPIC -std=gnu++17 -fPIC -Wall -Wextra -o CMakeFiles/ordenamiento_lib.dir/src/sorting.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/sorting.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/sorting.cpp",
+  "output": "lib/CMakeFiles/ordenamiento_lib.dir/src/sorting.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/lib",
+  "command": "/usr/bin/c++ -Dordenamiento_lib_EXPORTS -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src  -fPIC -std=gnu++17 -fPIC -Wall -Wextra -o CMakeFiles/ordenamiento_lib.dir/src/complex.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/complex.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/src/complex.cpp",
+  "output": "lib/CMakeFiles/ordenamiento_lib.dir/src/complex.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/app",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/OrdenarEnteros.dir/main.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp",
+  "output": "app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp",
+  "output": "examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo2_strings.cpp",
+  "output": "examples/CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp",
+  "output": "examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/examples",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo4_complejos.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo4_complejos.cpp",
+  "output": "examples/CMakeFiles/ejemplo4_complejos.dir/ejemplo4_complejos.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/tests",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/include -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/test_complex.dir/test_complex.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/tests/test_complex.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/tests/test_complex.cpp",
+  "output": "tests/CMakeFiles/test_complex.dir/test_complex.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/tests",
+  "command": "/usr/bin/c++  -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/lib/include -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/include -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest  -fPIC -std=gnu++17 -Wall -Wextra -o CMakeFiles/test_array.dir/test_array.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/tests/test_array.cpp",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/tests/test_array.cpp",
+  "output": "tests/CMakeFiles/test_array.dir/test_array.cpp.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-build/googletest",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/include -I/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest  -fPIC -std=c++17 -fPIC -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-build/googletest",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/include -isystem /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest  -fPIC -std=c++17 -fPIC -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+}
+]

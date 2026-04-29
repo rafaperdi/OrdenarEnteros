@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Crear la librería de ordenamiento
-add_library(ordenamiento_lib src/sorting.cpp)
+add_library(ordenamiento_lib 
+    src/sorting.cpp
+    src/complex.cpp
+)
 
 # Establecer propiedades de la librería
 set_target_properties(ordenamiento_lib PROPERTIES

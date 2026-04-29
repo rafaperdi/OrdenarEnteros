@@ -26,6 +26,9 @@ set(EXECUTABLE_OUTPUT_DIR "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Directorio de sa
 # Opción 4: Ruta de salida de librerías
 set(LIBRARY_OUTPUT_DIR "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Directorio de salida para librerías")
 
+# Opción 5: Habilitar tests unitarios
+option(BUILD_TESTS "Compilar tests unitarios con Google Test" ON)
+
 # ============================================================================
 # Configuración por Plataforma
 # ============================================================================
@@ -88,6 +91,11 @@ add_subdirectory(lib)
 add_subdirectory(app)
 add_subdirectory(examples)
 
+# Agregar tests si está habilitado
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
+
 # ============================================================================
 # Resumen de Configuración
 # ============================================================================
@@ -103,6 +111,7 @@ message(STATUS "║ Compilador:          ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_CO
 message(STATUS "║ Tipo de Compilación: ${CMAKE_BUILD_TYPE}")
 message(STATUS "║ Executables:         ${EXECUTABLE_OUTPUT_DIR}")
 message(STATUS "║ Librerías:           ${LIBRARY_OUTPUT_DIR}")
+message(STATUS "║ Tests Unitarios:     ${BUILD_TESTS}")
 message(STATUS "╚════════════════════════════════════════════════════════════════╝")
 message(STATUS "")
 

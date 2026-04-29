@@ -130,6 +130,30 @@ ordenamiento_lib/fast:
 	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/ordenamiento_lib.dir/build.make lib/CMakeFiles/ordenamiento_lib.dir/build
 .PHONY : ordenamiento_lib/fast
 
+src/complex.o: src/complex.cpp.o
+.PHONY : src/complex.o
+
+# target to build an object file
+src/complex.cpp.o:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/ordenamiento_lib.dir/build.make lib/CMakeFiles/ordenamiento_lib.dir/src/complex.cpp.o
+.PHONY : src/complex.cpp.o
+
+src/complex.i: src/complex.cpp.i
+.PHONY : src/complex.i
+
+# target to preprocess a source file
+src/complex.cpp.i:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/ordenamiento_lib.dir/build.make lib/CMakeFiles/ordenamiento_lib.dir/src/complex.cpp.i
+.PHONY : src/complex.cpp.i
+
+src/complex.s: src/complex.cpp.s
+.PHONY : src/complex.s
+
+# target to generate assembly for a file
+src/complex.cpp.s:
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/ordenamiento_lib.dir/build.make lib/CMakeFiles/ordenamiento_lib.dir/src/complex.cpp.s
+.PHONY : src/complex.cpp.s
+
 src/sorting.o: src/sorting.cpp.o
 .PHONY : src/sorting.o
 
@@ -163,6 +187,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ordenamiento_lib"
+	@echo "... src/complex.o"
+	@echo "... src/complex.i"
+	@echo "... src/complex.s"
 	@echo "... src/sorting.o"
 	@echo "... src/sorting.i"
 	@echo "... src/sorting.s"

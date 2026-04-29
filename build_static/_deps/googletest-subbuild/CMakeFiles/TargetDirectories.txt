@@ -1,0 +1,3 @@
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_static/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

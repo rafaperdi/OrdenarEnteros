@@ -76,15 +76,15 @@ app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o: app/CMakeFiles/OrdenarEnteros.dir/
 app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o: /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp
 app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o: app/CMakeFiles/OrdenarEnteros.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o -MF CMakeFiles/OrdenarEnteros.dir/main.cpp.o.d -o CMakeFiles/OrdenarEnteros.dir/main.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT app/CMakeFiles/OrdenarEnteros.dir/main.cpp.o -MF CMakeFiles/OrdenarEnteros.dir/main.cpp.o.d -o CMakeFiles/OrdenarEnteros.dir/main.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp
 
 app/CMakeFiles/OrdenarEnteros.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OrdenarEnteros.dir/main.cpp.i"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp > CMakeFiles/OrdenarEnteros.dir/main.cpp.i
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp > CMakeFiles/OrdenarEnteros.dir/main.cpp.i
 
 app/CMakeFiles/OrdenarEnteros.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OrdenarEnteros.dir/main.cpp.s"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp -o CMakeFiles/OrdenarEnteros.dir/main.cpp.s
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/app && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/app/main.cpp -o CMakeFiles/OrdenarEnteros.dir/main.cpp.s
 
 # Object files for target OrdenarEnteros
 OrdenarEnteros_OBJECTS = \

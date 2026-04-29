@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/ejemplo3_objetos.dir/link.d CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -o ../bin/examples/ejemplo3_objetos  ../lib/libordenamiento_lib.a

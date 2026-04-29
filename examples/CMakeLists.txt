@@ -5,6 +5,7 @@ set(EXAMPLES
     ejemplo1_basico
     ejemplo2_strings
     ejemplo3_objetos
+    ejemplo4_complejos
 )
 
 foreach(EXAMPLE ${EXAMPLES})

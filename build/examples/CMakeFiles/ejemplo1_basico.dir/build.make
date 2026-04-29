@@ -76,15 +76,15 @@ examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o: examples/CMakeFil
 examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o: /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp
 examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o: examples/CMakeFiles/ejemplo1_basico.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -MF CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o.d -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -MF CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o.d -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp
 
 examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.i"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp > CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.i
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp > CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.i
 
 examples/CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.s"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.s
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo1_basico.cpp -o CMakeFiles/ejemplo1_basico.dir/ejemplo1_basico.cpp.s
 
 # Object files for target ejemplo1_basico
 ejemplo1_basico_OBJECTS = \

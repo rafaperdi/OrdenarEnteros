@@ -76,15 +76,15 @@ examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o: examples/CMakeF
 examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o: /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp
 examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o: examples/CMakeFiles/ejemplo3_objetos.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -MF CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o.d -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -MF CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o.d -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.o -c /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp
 
 examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.i"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp > CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.i
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp > CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.i
 
 examples/CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.s"
-	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.s
+	cd /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build/examples && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rperdi/projects/cplusplus/repos/OrdenarEnteros/examples/ejemplo3_objetos.cpp -o CMakeFiles/ejemplo3_objetos.dir/ejemplo3_objetos.cpp.s
 
 # Object files for target ejemplo3_objetos
 ejemplo3_objetos_OBJECTS = \

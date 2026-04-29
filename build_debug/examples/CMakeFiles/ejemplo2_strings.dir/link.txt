@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g -g -O0 -Wl,--dependency-file=CMakeFiles/ejemplo2_strings.dir/link.d CMakeFiles/ejemplo2_strings.dir/ejemplo2_strings.cpp.o -o ../bin/examples/ejemplo2_strings  -Wl,-rpath,/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/build_debug/lib ../lib/libordenamiento_lib.so.1.0.0
