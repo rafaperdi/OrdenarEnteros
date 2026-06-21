@@ -17,7 +17,7 @@ double Complex::imaginary() const noexcept {
 
 // Obtener el módulo (magnitud) del número complejo
 double Complex::magnitude() const noexcept {
-    return std::sqrt(real_ * real_ + imaginary_ * imaginary_);
+    return std::hypot(real_, imaginary_);
 }
 
 // Obtener la fase (ángulo) en radianes
@@ -51,7 +51,7 @@ Complex Complex::operator*(const Complex& other) const {
 Complex Complex::operator/(const Complex& other) const {
     double denominator = other.real_ * other.real_ + other.imaginary_ * other.imaginary_;
     
-    if (std::abs(denominator) < EPSILON) {
+    if (denominator == 0.0) {
         throw std::invalid_argument("División por cero (número complejo con magnitud cero)");
     }
     

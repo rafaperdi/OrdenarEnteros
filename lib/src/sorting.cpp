@@ -6,5 +6,5 @@
 // Explícitamente instantiamos algunos tipos comunes para precompilación
 template void ordenar<int>(Array<int>&);
 template void ordenar<double>(Array<double>&);
-template void quickSort<int>(Array<int>&, int, int);
-template void quickSort<double>(Array<double>&, int, int);
+template void quickSort<int>(Array<int>&);
+template void quickSort<double>(Array<double>&);

@@ -12,6 +12,11 @@ set_target_properties(ordenamiento_lib PROPERTIES
     SOVERSION 1
 )
 
+# Generar automáticamente la biblioteca de importación al crear una DLL con MSVC.
+if(WIN32 AND BUILD_SHARED_LIBS)
+    set_target_properties(ordenamiento_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
+
 # Incluir directorio de headers
 target_include_directories(ordenamiento_lib
     PUBLIC

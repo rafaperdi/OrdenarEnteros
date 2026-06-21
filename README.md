@@ -1,4 +1,4 @@
-# OrdenarEnteros - Librería Dinámica Configurable
+# OrdenarEnteros - Librería de ordenamiento configurable
 
 Proyecto profesional de C++ con algoritmos de ordenamiento genéricos usando **Templates**. Permite compilar como librería dinámica o estática, y configurable para Windows o Linux.
 
@@ -35,89 +35,85 @@ build/                                # Directorio de compilación
 └── lib/                              # Librerías generadas
 ```
 
-## 🚀 Compilación
+## Compilación
 
-### Compilación Básica (Dinámica - Linux)
+La guía breve está en [INICIO_RAPIDO.md](INICIO_RAPIDO.md) y todas las
+variantes, rutas de salida y soluciones a errores están documentadas en
+[GUIA_COMPILACION.md](GUIA_COMPILACION.md).
 
-```bash
-mkdir -p build
-cd build
-cmake ..
-cmake --build .
+### Windows recomendado
+
+Desde PowerShell o `cmd.exe`:
+
+```powershell
+.\build_windows_portable.cmd
 ```
 
-El ejecutable estará en: `build/bin/OrdenarEnteros`
-La librería estará en: `build/lib/libordenamiento_lib.so`
+Este script compila para Windows x64 en `Release`, con librería estática,
+runtime estático de MSVC, ejemplos incluidos y tests deshabilitados.
 
-### Opciones de Compilación
+Con la carpeta actualmente configurada mediante Visual Studio, el ejecutable
+queda en:
 
-#### 1️⃣ Librería Estática (Linux)
-```bash
-cmake -B build -DBUILD_SHARED_LIBS=OFF
-cmake --build build
-```
-Genera: `build/lib/libordenamiento_lib.a`
-
-#### 2️⃣ Librería Dinámica (Linux - Default)
-```bash
-cmake -B build -DBUILD_SHARED_LIBS=ON
-cmake --build build
-```
-Genera: `build/lib/libordenamiento_lib.so`
-
-#### 3️⃣ Para Windows (Dinámica)
-```bash
-cmake -B build -DTARGET_PLATFORM=Windows -DBUILD_SHARED_LIBS=ON
-cmake --build build
-```
-Genera: `build\bin\OrdenarEnteros.exe`, `build\lib\ordenamiento_lib.dll`
-
-#### 4️⃣ Para Windows (Estática)
-```bash
-cmake -B build -DTARGET_PLATFORM=Windows -DBUILD_SHARED_LIBS=OFF
-cmake --build build
-```
-Genera: `build\lib\ordenamiento_lib.lib`
-
-#### 5️⃣ Modo Debug
-```bash
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+```powershell
+.\build_windows_portable\bin\Release\OrdenarEnteros.exe
 ```
 
-#### 6️⃣ Modo Release (Optimizaciones)
-```bash
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build
+Si el script crea la carpeta mediante Ninja, queda en:
+
+```powershell
+.\build_windows_portable\bin\OrdenarEnteros.exe
 ```
 
-### Combinaciones de Opciones
+### Linux recomendado
 
 ```bash
-# Windows + Estática + Release
-cmake -B build -DTARGET_PLATFORM=Windows \
-               -DBUILD_SHARED_LIBS=OFF \
-               -DCMAKE_BUILD_TYPE=Release
-cmake --build build
+cmake -S . -B build_linux \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=ON \
+  -DBUILD_TESTS=OFF \
+  -DCMAKE_BUILD_TYPE=Release
 
-# Linux + Dinámica + Debug
-cmake -B build -DTARGET_PLATFORM=Linux \
-               -DBUILD_SHARED_LIBS=ON \
-               -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+cmake --build build_linux --parallel
+./build_linux/bin/OrdenarEnteros
 ```
 
-## 🏃 Ejecución
+### Tests
 
-### Linux
+Los tests usan Google Test. La primera configuración con `BUILD_TESTS=ON`
+requiere Git y acceso a Internet.
+
+Windows con Visual Studio:
+
+```powershell
+cmake -S . -B build_tests -A x64 `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=OFF `
+  -DBUILD_TESTS=ON
+
+cmake --build build_tests --config Release --parallel
+ctest --test-dir build_tests -C Release --output-on-failure
+```
+
+Linux:
+
 ```bash
-./build/bin/OrdenarEnteros
+cmake -S . -B build_tests \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTS=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build_tests --parallel
+ctest --test-dir build_tests --output-on-failure
 ```
 
-### Windows
-```bash
-.\build\bin\OrdenarEnteros.exe
-```
+### Importante: generadores de CMake
+
+No reutilices una carpeta de compilación con generadores distintos. Por
+ejemplo, una carpeta creada con Visual Studio no puede reconfigurarse con
+Ninja. Usa carpetas separadas como `build_msvc`, `build_ninja` y
+`build_tests`.
 
 ## 📚 Ejemplos de Uso
 
@@ -211,7 +207,9 @@ Ejecutar:
 |----------|---------------|----------|-------------|
 | `BUILD_SHARED_LIBS` | `ON` | `ON` / `OFF` | Librería dinámica o estática |
 | `TARGET_PLATFORM` | `Linux` | `Linux` / `Windows` | Plataforma destino |
-| `CMAKE_BUILD_TYPE` | `Release` | `Debug` / `Release` | Modo de compilación |
+| `BUILD_TESTS` | `ON` | `ON` / `OFF` | Compilar tests con Google Test |
+| `MSVC_STATIC_RUNTIME` | `OFF` | `ON` / `OFF` | Usar runtime estático de MSVC (`/MT`) |
+| `CMAKE_BUILD_TYPE` | Sin valor | `Debug` / `Release` | Modo para Ninja, Makefiles y otros generadores de una configuración |
 | `EXECUTABLE_OUTPUT_DIR` | `build/bin` | Ruta personalizada | Salida de ejecutables |
 | `LIBRARY_OUTPUT_DIR` | `build/lib` | Ruta personalizada | Salida de librerías |
 
@@ -266,9 +264,10 @@ target_link_libraries(tu_proyecto PRIVATE /ruta/a/libordenamiento_lib.a)
 
 - **CMake**: 3.10 o superior
 - **C++**: C++17 o superior
+- **Tests**: Git y acceso a Internet durante la primera descarga de Google Test
 - **Compilador**:
   - Linux: GCC 7.0+ o Clang 5.0+
-  - Windows: MSVC 2017+ o GCC/Clang en MinGW
+  - Windows: MSVC con herramientas de desarrollo de escritorio con C++
 
 ## 🎓 Conceptos Implementados
 

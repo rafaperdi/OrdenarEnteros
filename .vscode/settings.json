@@ -1,4 +1,20 @@
 {
+  "cmake.cmakePath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe",
+  "cmake.generator": "Visual Studio 18 2026",
+  "cmake.buildDirectory": "${workspaceFolder}/build_windows_portable",
+  "cmake.configureArgs": [
+    "-A",
+    "x64",
+    "-DTARGET_PLATFORM=Windows",
+    "-DBUILD_SHARED_LIBS=OFF",
+    "-DMSVC_STATIC_RUNTIME=ON",
+    "-DBUILD_TESTS=OFF"
+  ],
+  "cmake.buildArgs": [
+    "--config",
+    "Release",
+    "--parallel"
+  ],
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",

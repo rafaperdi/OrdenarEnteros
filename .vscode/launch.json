@@ -2,23 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
+      "name": "Depurar OrdenarEnteros (Windows/MSVC)",
+      "type": "cppvsdbg",
       "request": "launch",
+      "program": "${workspaceFolder}\\build_windows_portable\\bin\\Debug\\OrdenarEnteros.exe",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/src",
-      "program": "/home/rperdi/projects/cplusplus/repos/OrdenarEnteros/src/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Compilar Windows Debug"
     }
   ]
 }

@@ -1,233 +1,114 @@
-# INICIO RÁPIDO - OrdenarEnteros
+# Inicio rapido - OrdenarEnteros
 
-Bienvenido a **OrdenarEnteros**, un proyecto profesional de C++ con librería dinámica configurable.
+Esta guia contiene el camino mas corto para compilar y ejecutar el proyecto.
+Para todas las opciones y la solucion de problemas, consulta
+[GUIA_COMPILACION.md](GUIA_COMPILACION.md).
 
-## 🚀 Inicio Rápido (30 segundos)
+## Windows: compilacion recomendada
 
-### Opción 1: Usar Script de Compilación (Recomendado)
+Requisitos:
+
+- Visual Studio Community 2026 instalado en
+  `C:\Program Files\Microsoft Visual Studio\18\Community`
+- Componente de desarrollo de escritorio con C++
+- CMake y Ninja incluidos con Visual Studio
+
+Desde PowerShell o `cmd.exe`, en la raiz del proyecto:
+
+```powershell
+.\build_windows_portable.cmd
+```
+
+El script genera una compilacion `Release` para Windows x64 con:
+
+- libreria estatica
+- runtime de MSVC estatico
+- ejemplos incluidos
+- tests unitarios deshabilitados
+
+Segun el generador guardado en la carpeta de compilacion, el ejecutable estara
+en una de estas rutas:
+
+```text
+build_windows_portable\bin\Release\OrdenarEnteros.exe
+build_windows_portable\bin\OrdenarEnteros.exe
+```
+
+Para localizarlo y ejecutarlo desde PowerShell:
+
+```powershell
+$exe = Get-ChildItem .\build_windows_portable\bin -Recurse -Filter OrdenarEnteros.exe |
+    Select-Object -First 1
+& $exe.FullName
+```
+
+## Linux: compilacion recomendada
+
+Requisitos:
+
+- CMake 3.10 o posterior
+- compilador compatible con C++17, como GCC o Clang
+- Git y acceso a Internet si se compilan los tests por primera vez
 
 ```bash
-cd /ruta/a/OrdenarEnteros
-./build.sh dynamic    # Compilar (dinámica, Linux)
-./build/bin/OrdenarEnteros   # Ejecutar
+cmake -S . -B build_linux \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=ON \
+  -DBUILD_TESTS=OFF \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build_linux --parallel
+./build_linux/bin/OrdenarEnteros
 ```
 
-### Opción 2: Compilación Manual
+## Compilar y ejecutar tests
+
+Google Test se descarga durante la primera configuracion, por lo que este paso
+requiere acceso a Internet si aun no esta almacenado localmente.
+
+### Windows con Visual Studio
+
+Ejecuta los comandos desde un Developer PowerShell o Developer Command Prompt:
+
+```powershell
+cmake -S . -B build_tests -A x64 `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=OFF `
+  -DBUILD_TESTS=ON
+
+cmake --build build_tests --config Release --parallel
+ctest --test-dir build_tests -C Release --output-on-failure
+```
+
+### Linux
 
 ```bash
-cd /ruta/a/OrdenarEnteros
-mkdir -p build && cd build
-cmake ..
-cmake --build .
-../build/bin/OrdenarEnteros
+cmake -S . -B build_tests \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTS=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build_tests --parallel
+ctest --test-dir build_tests --output-on-failure
 ```
 
-## 📚 Ejemplos Rápidos
+## Error de generador de CMake
 
-### Después de compilar, ejecutar:
+Una carpeta de compilacion solo puede pertenecer a un generador. Por ejemplo,
+no se puede reutilizar una carpeta creada con Visual Studio usando Ninja.
 
-```bash
-# Programa principal (8 pruebas completas)
-./build/bin/OrdenarEnteros
+El script `build_windows_portable.cmd` reutiliza automaticamente el generador
+guardado. Para comandos manuales, usa una carpeta diferente para cada
+generador:
 
-# Ejemplos individuales
-./build/bin/examples/ejemplo1_basico
-./build/bin/examples/ejemplo2_strings
-./build/bin/examples/ejemplo3_objetos
+```text
+build_msvc
+build_ninja
+build_linux
+build_tests
 ```
 
-## 🎯 Casos de Uso Comunes
-
-### 1. Compilar para Linux (Dinámica)
-
-```bash
-./build.sh dynamic
-# o manualmente:
-cmake -B build -DBUILD_SHARED_LIBS=ON
-cmake --build build
-```
-
-**Resultado:** `build/lib/libordenamiento_lib.so`
-
-### 2. Compilar para Linux (Estática)
-
-```bash
-./build.sh static
-# o manualmente:
-cmake -B build -DBUILD_SHARED_LIBS=OFF
-cmake --build build
-```
-
-**Resultado:** `build/lib/libordenamiento_lib.a`
-
-### 3. Compilar para Windows
-
-```bash
-./build.sh windows
-# o manualmente:
-cmake -B build -DTARGET_PLATFORM=Windows
-cmake --build build --config Release
-```
-
-**Resultado:** `build\lib\ordenamiento_lib.dll`
-
-### 4. Compilar en Modo Debug
-
-```bash
-./build.sh debug
-# o manualmente:
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
-```
-
-### 5. Compilar TODAS las versiones
-
-```bash
-./build.sh all
-```
-
-Genera 5 builds:
-- `build/` - Linux dinámica
-- `build_static/` - Linux estática
-- `build_debug/` - Linux debug
-- `build_windows/` - Windows dinámica
-- `build_windows_static/` - Windows estática
-
-## 📁 Estructura Principal
-
-```
-OrdenarEnteros/
-├── lib/                    # Librería de ordenamiento
-│   ├── include/           # Headers públicos
-│   │   ├── array.h
-│   │   └── sorting.h
-│   └── src/
-│       └── sorting.cpp
-├── app/                    # Aplicación principal
-│   └── main.cpp
-├── examples/               # 3 ejemplos de uso
-├── build.sh               # Script de compilación (recomendado)
-├── CMakeLists.txt         # Configuración raíz
-├── README.md              # Documentación completa
-├── GUIA_COMPILACION.md    # Guía detallada
-└── ESTRUCTURA_PROYECTO.md # Estructura interna
-```
-
-## 🔧 Configuración CMake (Opciones)
-
-```cmake
-BUILD_SHARED_LIBS     # ON (dinámica) | OFF (estática)
-TARGET_PLATFORM       # "Linux" | "Windows"
-CMAKE_BUILD_TYPE      # "Debug" | "Release"
-```
-
-## 💡 Ejemplo de Uso en tu Código
-
-```cpp
-#include "array.h"
-#include "sorting.h"
-#include <iostream>
-
-int main() {
-    // Crear array de enteros
-    Array<int> numeros{5, 2, 8, 1, 9};
-    
-    // Ordenar
-    ordenar(numeros);
-    
-    // Imprimir
-    std::cout << "Ordenado: ";
-    numeros.print();  // [1, 2, 5, 8, 9]
-    
-    return 0;
-}
-```
-
-## 📖 Documentación
-
-- **[README.md](README.md)** - Documentación completa
-- **[GUIA_COMPILACION.md](GUIA_COMPILACION.md)** - Guía detallada de compilación
-- **[ESTRUCTURA_PROYECTO.md](ESTRUCTURA_PROYECTO.md)** - Estructura interna del proyecto
-
-## ✨ Características
-
-- ✅ **Templates Genéricos** - Funciona con cualquier tipo
-- ✅ **Multiplataforma** - Linux y Windows
-- ✅ **Configurable** - Dinámica o estática
-- ✅ **Fácil de Usar** - API simple
-- ✅ **Profesional** - Estructura lista para producción
-
-## 🎓 Tipos Soportados
-
-```cpp
-// Tipos primitivos
-Array<int> numeros{1, 2, 3};
-Array<double> decimales{1.1, 2.2};
-
-// Strings
-Array<std::string> palabras{"a", "b"};
-
-// Objetos customizados
-class MiClase { ... };
-Array<MiClase> objetos{...};
-```
-
-## 🔗 Compilación Rápida
-
-| Necesito | Comando |
-|----------|---------|
-| Dinámica (Linux) | `./build.sh dynamic` |
-| Estática (Linux) | `./build.sh static` |
-| Windows | `./build.sh windows` |
-| Todas las versiones | `./build.sh all` |
-| Limpiar | `./build.sh clean` |
-| Ayuda | `./build.sh help` |
-
-## ⚠️ Requerimientos
-
-- CMake 3.10+
-- C++17
-- Compilador: GCC, Clang o MSVC
-
-## 🆘 Problemas Comunes
-
-### "cmake: command not found"
-```bash
-sudo apt-get install cmake  # Ubuntu/Debian
-brew install cmake           # macOS
-```
-
-### "Permission denied" (script)
-```bash
-chmod +x build.sh
-```
-
-### Librería dinámica no encontrada (Linux)
-```bash
-LD_LIBRARY_PATH=./build/lib ./build/bin/OrdenarEnteros
-```
-
-## 📊 Tamaños
-
-| Tipo | Tamaño |
-|------|--------|
-| Librería dinámica (.so) | ~17 KB |
-| Librería estática (.a) | ~11 KB |
-| Ejecutable (dinámica) | ~74 KB |
-| Ejecutable (estática) | ~74 KB |
-
-## 🚀 Próximos Pasos
-
-1. ✅ Compilar con `./build.sh dynamic`
-2. ✅ Ejecutar `./build/bin/OrdenarEnteros`
-3. ✅ Ver ejemplos en `./build/bin/examples/`
-4. 📖 Leer [README.md](README.md) para más detalles
-5. 🔧 Personalizaciones en [GUIA_COMPILACION.md](GUIA_COMPILACION.md)
-
----
-
-**¡Listo para empezar! Compila, prueba y distribuye.** 🎉
-
-```bash
-./build.sh dynamic && ./build/bin/OrdenarEnteros
-```
+Si aparece el mensaje `Does not match the generator used previously`, consulta
+la seccion de solucion de problemas de
+[GUIA_COMPILACION.md](GUIA_COMPILACION.md).

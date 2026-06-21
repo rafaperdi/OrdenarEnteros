@@ -1,431 +1,297 @@
-# GuíaDeCompilación.md - OrdenarEnteros
+# Guia de compilacion
 
-## Guía Completa de Compilación
+Esta es la referencia de compilacion del proyecto `OrdenarEnteros`.
 
-Este documento explica todas las opciones de compilación disponibles para el proyecto OrdenarEnteros.
+## Requisitos
 
-## 📋 Tabla de Contenidos
+El proyecto requiere:
 
-1. [Compilación Básica](#compilación-básica)
-2. [Opciones CMake](#opciones-cmake)
-3. [Compilación para Linux](#compilación-para-linux)
-4. [Compilación para Windows](#compilación-para-windows)
-5. [Compilación Condicional](#compilación-condicional)
-6. [Estructura de Salida](#estructura-de-salida)
-7. [Troubleshooting](#troubleshooting)
+- CMake 3.10 o posterior
+- un compilador compatible con C++17
+- Git y acceso a Internet para descargar Google Test la primera vez que se
+  configura una compilacion con `BUILD_TESTS=ON`
 
-## Compilación Básica
+En Windows se recomienda Visual Studio con la carga de trabajo de desarrollo de
+escritorio con C++. El script incluido esta preparado para Visual Studio
+Community 2026 instalado en:
 
-### 1️⃣ Compilación por Defecto (Librería Dinámica - Linux)
-
-```bash
-cd /ruta/a/OrdenarEnteros
-mkdir -p build
-cd build
-cmake ..
-cmake --build .
+```text
+C:\Program Files\Microsoft Visual Studio\18\Community
 ```
 
-**Resultado:**
-- Ejecutable: `build/bin/OrdenarEnteros`
-- Librería: `build/lib/libordenamiento_lib.so.1.0.0`
-- Enlace simbólico: `build/lib/libordenamiento_lib.so`
+## Compilacion recomendada para Windows
+
+Desde PowerShell o `cmd.exe`, situado en la raiz del repositorio:
+
+```powershell
+.\build_windows_portable.cmd
+```
+
+El script:
+
+- inicializa el entorno x64 de MSVC
+- reutiliza el generador almacenado si ya existe una caché de CMake
+- usa Ninja al crear por primera vez la carpeta
+- configura una compilacion `Release`
+- genera una libreria estatica
+- enlaza estaticamente el runtime de MSVC mediante `/MT`
+- compila la aplicacion principal y los cuatro ejemplos
+- deshabilita los tests unitarios
+
+Configuracion equivalente:
+
+```text
+TARGET_PLATFORM=Windows
+BUILD_SHARED_LIBS=OFF
+MSVC_STATIC_RUNTIME=ON
+BUILD_TESTS=OFF
+```
+
+### Salidas
+
+Con el generador de Visual Studio:
+
+```text
+build_windows_portable\bin\Release\OrdenarEnteros.exe
+build_windows_portable\bin\examples\Release\ejemplo1_basico.exe
+build_windows_portable\bin\examples\Release\ejemplo2_strings.exe
+build_windows_portable\bin\examples\Release\ejemplo3_objetos.exe
+build_windows_portable\bin\examples\Release\ejemplo4_complejos.exe
+build_windows_portable\lib\Release\ordenamiento_lib.lib
+```
+
+Con Ninja, las mismas salidas no incluyen el subdirectorio `Release`:
+
+```text
+build_windows_portable\bin\OrdenarEnteros.exe
+build_windows_portable\bin\examples\ejemplo1_basico.exe
+build_windows_portable\lib\ordenamiento_lib.lib
+```
+
+### Ejecutar la aplicacion
+
+Con la carpeta actual configurada mediante Visual Studio:
+
+```powershell
+.\build_windows_portable\bin\Release\OrdenarEnteros.exe
+```
+
+Comando independiente del generador:
+
+```powershell
+$exe = Get-ChildItem .\build_windows_portable\bin -Recurse -Filter OrdenarEnteros.exe |
+    Select-Object -First 1
+& $exe.FullName
+```
+
+## Compilacion manual para Windows
+
+Ejecuta estos comandos desde un Developer PowerShell o Developer Command Prompt
+de Visual Studio.
+
+### Visual Studio: estatica y Release
+
+```powershell
+cmake -S . -B build_msvc -A x64 `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=OFF `
+  -DMSVC_STATIC_RUNTIME=ON `
+  -DBUILD_TESTS=OFF
+
+cmake --build build_msvc --config Release --parallel
+.\build_msvc\bin\Release\OrdenarEnteros.exe
+```
+
+### Visual Studio: dinamica y Release
+
+```powershell
+cmake -S . -B build_msvc_shared -A x64 `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=ON `
+  -DBUILD_TESTS=OFF
+
+cmake --build build_msvc_shared --config Release --parallel
+.\build_msvc_shared\bin\Release\OrdenarEnteros.exe
+```
+
+La DLL y su biblioteca de importacion se generan dentro de los directorios de
+salida de la configuracion `Release`.
+
+### Ninja: estatica y Release
+
+```powershell
+cmake -S . -B build_ninja -G Ninja `
+  -DCMAKE_BUILD_TYPE=Release `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=OFF `
+  -DMSVC_STATIC_RUNTIME=ON `
+  -DBUILD_TESTS=OFF
+
+cmake --build build_ninja --parallel
+.\build_ninja\bin\OrdenarEnteros.exe
+```
+
+## Compilacion para Linux
+
+### Dinamica y Release
+
+```bash
+cmake -S . -B build_linux \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=ON \
+  -DBUILD_TESTS=OFF \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build_linux --parallel
+./build_linux/bin/OrdenarEnteros
+```
+
+Genera `build_linux/lib/libordenamiento_lib.so`.
+
+### Estatica y Debug
+
+```bash
+cmake -S . -B build_linux_debug \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTS=OFF \
+  -DCMAKE_BUILD_TYPE=Debug
+
+cmake --build build_linux_debug --parallel
+./build_linux_debug/bin/OrdenarEnteros
+```
+
+Genera `build_linux_debug/lib/libordenamiento_lib.a`.
+
+El script Bash `build.sh` tambien ofrece configuraciones predefinidas para
+entornos Unix:
+
+```bash
+./build.sh help
+./build.sh dynamic
+./build.sh static
+./build.sh debug
+```
+
+## Tests unitarios
+
+Los tests usan Google Test y estan activados por defecto. Para evitar descargas
+durante una compilacion normal, especifica `-DBUILD_TESTS=OFF`.
+
+### Windows con Visual Studio
+
+```powershell
+cmake -S . -B build_tests -A x64 `
+  -DTARGET_PLATFORM=Windows `
+  -DBUILD_SHARED_LIBS=OFF `
+  -DBUILD_TESTS=ON
+
+cmake --build build_tests --config Release --parallel
+ctest --test-dir build_tests -C Release --output-on-failure
+```
+
+### Linux o Ninja
+
+```bash
+cmake -S . -B build_tests \
+  -DTARGET_PLATFORM=Linux \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTS=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build_tests --parallel
+ctest --test-dir build_tests --output-on-failure
+```
 
 ## Opciones CMake
 
-### 1. `BUILD_SHARED_LIBS` (Por defecto: ON)
+| Variable | Valor por defecto | Descripcion |
+|---|---|---|
+| `TARGET_PLATFORM` | `Linux` | Plataforma logica: `Linux` o `Windows` |
+| `BUILD_SHARED_LIBS` | `ON` | `ON` crea libreria dinamica; `OFF`, estatica |
+| `BUILD_TESTS` | `ON` | Compila los tests y descarga Google Test si es necesario |
+| `MSVC_STATIC_RUNTIME` | `OFF` | Con MSVC, usa `/MT` en lugar del runtime dinamico |
+| `CMAKE_BUILD_TYPE` | sin valor | Configuracion para generadores de una sola configuracion, como Ninja |
+| `EXECUTABLE_OUTPUT_DIR` | `<build>/bin` | Directorio base de ejecutables |
+| `LIBRARY_OUTPUT_DIR` | `<build>/lib` | Directorio base de librerias |
 
-Controla si se compila como librería dinámica o estática.
+`CMAKE_BUILD_TYPE` no selecciona la configuracion al usar Visual Studio. Con ese
+generador debe pasarse `--config Debug` o `--config Release` al compilar y `-C`
+al ejecutar `ctest`.
 
-| Valor | Resultado | Archivo |
-|-------|-----------|---------|
-| `ON` | Dinámica | `.so` (Linux), `.dll` (Windows) |
-| `OFF` | Estática | `.a` (Linux), `.lib` (Windows) |
+## Generadores y carpetas de compilacion
 
-### 2. `TARGET_PLATFORM` (Por defecto: Linux)
+CMake guarda el generador dentro de `CMakeCache.txt`. No reutilices una misma
+carpeta con generadores diferentes.
 
-Define la plataforma destino de compilación.
+Ejemplo correcto:
 
-| Valor | Descripción | Compilador Típico |
-|-------|-------------|-------------------|
-| `Linux` | Linux/Unix | GCC o Clang |
-| `Windows` | Windows | MSVC, MinGW, etc. |
-
-### 3. `CMAKE_BUILD_TYPE` (Por defecto: Release)
-
-Tipo de compilación con diferentes optimizaciones.
-
-| Valor | Descripción | Optimizaciones |
-|-------|-------------|-----------------|
-| `Debug` | Debug | `-g -O0` (GCC), símbolos de depuración |
-| `Release` | Producción | `-O3 -march=native` (GCC), optimizaciones máximas |
-
-### 4. `EXECUTABLE_OUTPUT_DIR` (Por defecto: `build/bin`)
-
-Ruta personalizada para ejecutables.
-
-### 5. `LIBRARY_OUTPUT_DIR` (Por defecto: `build/lib`)
-
-Ruta personalizada para librerías.
-
-## Compilación para Linux
-
-### Librería Dinámica (Por Defecto)
-
-```bash
-cmake -B build -DTARGET_PLATFORM=Linux -DBUILD_SHARED_LIBS=ON
-cmake --build build
+```text
+build_msvc       -> Visual Studio
+build_ninja      -> Ninja
+build_linux      -> Unix Makefiles o Ninja en Linux
+build_tests      -> compilacion con tests
 ```
 
-**Genera:**
-- `build/bin/OrdenarEnteros`
-- `build/lib/libordenamiento_lib.so`
+Para conocer el generador de una carpeta existente en PowerShell:
 
-### Librería Estática
-
-```bash
-cmake -B build -DTARGET_PLATFORM=Linux -DBUILD_SHARED_LIBS=OFF
-cmake --build build
+```powershell
+Select-String -Path .\build_windows_portable\CMakeCache.txt `
+  -Pattern '^CMAKE_GENERATOR:'
 ```
 
-**Genera:**
-- `build/bin/OrdenarEnteros`
-- `build/lib/libordenamiento_lib.a`
+## Solucion de problemas
 
-### Modo Debug (Linux)
+### `Does not match the generator used previously`
 
-```bash
-cmake -B build -DTARGET_PLATFORM=Linux -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+La carpeta ya fue configurada con otro generador. Usa otra carpeta:
+
+```powershell
+cmake -S . -B build_ninja_nuevo -G Ninja
 ```
 
-### Modo Release Optimizado (Linux)
+Si necesitas regenerar una carpeta desde cero, elimina solo una carpeta de
+compilacion que hayas identificado y quieras descartar. No elimines el codigo
+fuente.
 
-```bash
-cmake -B build -DTARGET_PLATFORM=Linux -DCMAKE_BUILD_TYPE=Release
-cmake --build build
+### `cmake` no se reconoce en PowerShell
+
+Abre un Developer PowerShell de Visual Studio o usa
+`build_windows_portable.cmd`, que invoca el CMake incluido con Visual Studio.
+
+### El script no encuentra Visual Studio
+
+Revisa `VS_ROOT` al inicio de `build_windows_portable.cmd`. Debe apuntar a la
+instalacion real de Visual Studio.
+
+### Google Test no se puede descargar
+
+Configura sin tests:
+
+```powershell
+cmake -S . -B build_sin_tests -DBUILD_TESTS=OFF
 ```
 
-## Compilación para Windows
+Para compilar tests, habilita el acceso a Internet durante la primera
+configuracion o reutiliza una carpeta que ya tenga Google Test descargado.
 
-### Desde Windows con MSVC
+### No encuentro el ejecutable en Windows
 
-#### Librería Dinámica
+Visual Studio agrega `Debug` o `Release` a las rutas; Ninja no lo hace:
 
-```bash
-cmake -B build -DTARGET_PLATFORM=Windows -DBUILD_SHARED_LIBS=ON
-cmake --build build --config Release
+```powershell
+Get-ChildItem . -Recurse -Filter OrdenarEnteros.exe
 ```
 
-**Genera:**
-- `build\bin\OrdenarEnteros.exe`
-- `build\lib\ordenamiento_lib.dll`
-- `build\lib\ordenamiento_lib.lib` (import library)
+## Verificacion rapida
 
-#### Librería Estática
+La compilacion recomendada para Windows queda verificada cuando ambos comandos
+terminan con codigo de salida `0`:
 
-```bash
-cmake -B build -DTARGET_PLATFORM=Windows -DBUILD_SHARED_LIBS=OFF
-cmake --build build --config Release
+```powershell
+.\build_windows_portable.cmd
+.\build_windows_portable\bin\Release\OrdenarEnteros.exe
 ```
 
-**Genera:**
-- `build\bin\OrdenarEnteros.exe`
-- `build\lib\ordenamiento_lib.lib`
-
-### Desde Linux Compilando para Windows (MinGW)
-
-```bash
-# Requiere toolchain de MinGW instalado
-cmake -B build \
-    -DCMAKE_TOOLCHAIN_FILE=/ruta/a/mingw-toolchain.cmake \
-    -DTARGET_PLATFORM=Windows \
-    -DBUILD_SHARED_LIBS=ON
-
-cmake --build build
-```
-
-## Compilación Condicional
-
-### Combinaciones Comunes
-
-#### 1. Linux + Estática + Debug
-
-```bash
-cmake -B build \
-    -DTARGET_PLATFORM=Linux \
-    -DBUILD_SHARED_LIBS=OFF \
-    -DCMAKE_BUILD_TYPE=Debug
-
-cmake --build build
-```
-
-#### 2. Linux + Dinámica + Release
-
-```bash
-cmake -B build \
-    -DTARGET_PLATFORM=Linux \
-    -DBUILD_SHARED_LIBS=ON \
-    -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build
-```
-
-#### 3. Windows + Estática + Release
-
-```bash
-cmake -B build \
-    -DTARGET_PLATFORM=Windows \
-    -DBUILD_SHARED_LIBS=OFF \
-    -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build --config Release
-```
-
-#### 4. Windows + Dinámica + Debug
-
-```bash
-cmake -B build \
-    -DTARGET_PLATFORM=Windows \
-    -DBUILD_SHARED_LIBS=ON \
-    -DCMAKE_BUILD_TYPE=Debug
-
-cmake --build build --config Debug
-```
-
-### Directorios de Salida Personalizados
-
-```bash
-cmake -B build \
-    -DEXECUTABLE_OUTPUT_DIR="/ruta/custom/bin" \
-    -DLIBRARY_OUTPUT_DIR="/ruta/custom/lib"
-
-cmake --build build
-```
-
-## Estructura de Salida
-
-Después de compilar, la estructura típica es:
-
-### Compilación Dinámica (Linux)
-```
-build/
-├── bin/
-│   ├── OrdenarEnteros           (ejecutable principal)
-│   └── examples/
-│       ├── ejemplo1_basico
-│       ├── ejemplo2_strings
-│       └── ejemplo3_objetos
-└── lib/
-    ├── libordenamiento_lib.so.1.0.0
-    ├── libordenamiento_lib.so.1     (enlace simbólico)
-    └── libordenamiento_lib.so       (enlace simbólico)
-```
-
-### Compilación Estática (Linux)
-```
-build/
-├── bin/
-│   ├── OrdenarEnteros           (ejecutable principal, binario grande)
-│   └── examples/
-│       ├── ejemplo1_basico      (binarios también grandes)
-│       ├── ejemplo2_strings
-│       └── ejemplo3_objetos
-└── lib/
-    └── libordenamiento_lib.a
-```
-
-### Compilación (Windows)
-```
-build\
-├── bin\
-│   ├── OrdenarEnteros.exe
-│   └── examples\
-│       ├── ejemplo1_basico.exe
-│       ├── ejemplo2_strings.exe
-│       └── ejemplo3_objetos.exe
-└── lib\
-    ├── ordenamiento_lib.dll
-    ├── ordenamiento_lib.lib     (import library)
-    └── ...
-```
-
-## Limpieza y Reconstrucción
-
-### Limpiar Build (mantiene CMakeCache)
-
-```bash
-cd build
-cmake --build . --target clean
-```
-
-### Reconstruir Completamente
-
-```bash
-cd /ruta/a/OrdenarEnteros
-rm -rf build
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
-
-## Ejecución
-
-### Linux
-
-```bash
-# Ejecutable principal
-./build/bin/OrdenarEnteros
-
-# Ejemplos
-./build/bin/examples/ejemplo1_basico
-./build/bin/examples/ejemplo2_strings
-./build/bin/examples/ejemplo3_objetos
-```
-
-### Windows
-
-```bash
-# Ejecutable principal
-.\build\bin\OrdenarEnteros.exe
-
-# Ejemplos
-.\build\bin\examples\ejemplo1_basico.exe
-.\build\bin\examples\ejemplo2_strings.exe
-.\build\bin\examples\ejemplo3_objetos.exe
-```
-
-### Ejecución con Librería Dinámica en Linux
-
-Si la librería dinámica no está en la ruta del sistema:
-
-```bash
-# Opción 1: Usar LD_LIBRARY_PATH
-LD_LIBRARY_PATH=./build/lib ./build/bin/OrdenarEnteros
-
-# Opción 2: Instalar la librería
-sudo cp build/lib/libordenamiento_lib.so.1.0.0 /usr/local/lib/
-sudo ldconfig
-
-# Ahora ejecutar normalmente
-./build/bin/OrdenarEnteros
-```
-
-## Troubleshooting
-
-### Error: "CMake not found"
-
-```bash
-sudo apt-get install cmake  # Ubuntu/Debian
-brew install cmake           # macOS
-choco install cmake          # Windows (Chocolatey)
-```
-
-### Error: "C++ compiler not found"
-
-**Linux:**
-```bash
-sudo apt-get install build-essential  # Ubuntu/Debian
-```
-
-**macOS:**
-```bash
-xcode-select --install
-```
-
-**Windows:**
-- Descargar Visual Studio Community con herramientas de C++
-- O instalar MinGW/GCC
-
-### Error: "libordenamiento_lib.so: cannot open shared object file"
-
-Solución:
-```bash
-# Opción 1
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/build/lib
-
-# Opción 2
-sudo ldconfig -p | grep libordenamiento_lib
-```
-
-### Error: "Permission denied" (ejecutable no ejecutable)
-
-```bash
-chmod +x build/bin/OrdenarEnteros
-```
-
-### Compilación muy lenta
-
-Usar compilación paralela:
-```bash
-cmake --build build -j 4  # 4 núcleos
-# o
-make -j 4
-```
-
-## Verificación de Compilación
-
-### Verificar Tipo de Librería (Linux)
-
-```bash
-# Para dinámica
-ldd build/lib/libordenamiento_lib.so
-
-# Para estática
-file build/lib/libordenamiento_lib.a
-
-# Para ejecutable
-ldd build/bin/OrdenarEnteros
-```
-
-### Verificar Símbolos (Linux)
-
-```bash
-nm build/lib/libordenamiento_lib.so | grep ordenar
-nm build/lib/libordenamiento_lib.a | grep ordenar
-```
-
-### Verificar Size (Linux)
-
-```bash
-# Dinámico
-ls -lh build/lib/libordenamiento_lib.so
-ls -lh build/bin/OrdenarEnteros
-
-# Estático
-ls -lh build/lib/libordenamiento_lib.a
-ls -lh build/bin/OrdenarEnteros
-```
-
----
-
-## Cheat Sheet Rápido
-
-```bash
-# ===== LINUX =====
-
-# Dinámica (default)
-cmake -B build && cmake --build build
-
-# Estática
-cmake -B build -DBUILD_SHARED_LIBS=OFF && cmake --build build
-
-# Debug dinámico
-cmake -B build -DCMAKE_BUILD_TYPE=Debug && cmake --build build
-
-# Release estático
-cmake -B build -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release && cmake --build build
-
-# ===== WINDOWS =====
-
-# Dinámica
-cmake -B build -DTARGET_PLATFORM=Windows && cmake --build build --config Release
-
-# Estática
-cmake -B build -DTARGET_PLATFORM=Windows -DBUILD_SHARED_LIBS=OFF && cmake --build build --config Release
-```
-
----
-
-**¡Listo para compilar! Elige la opción que mejor se ajuste a tus necesidades.** 🚀
+Si la carpeta fue creada con Ninja, usa
+`.\build_windows_portable\bin\OrdenarEnteros.exe` para el segundo comando.

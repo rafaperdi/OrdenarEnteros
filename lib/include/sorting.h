@@ -1,23 +1,22 @@
 #pragma once
 
 #include "array.h"
-#include <functional>
+#include <algorithm>
+#include <cstddef>
 
 // Función de ordenamiento genérica con comparador por defecto
 template <typename T>
 void ordenar(Array<T>& arreglo) {
-    int n = arreglo.size();
-    for (int i = 0; i < n - 1; ++i) {
-        int minimo = i;
-        for (int j = i + 1; j < n; ++j) {
+    const std::size_t n = arreglo.size();
+    for (std::size_t i = 0; i < n; ++i) {
+        std::size_t minimo = i;
+        for (std::size_t j = i + 1; j < n; ++j) {
             if (arreglo[j] < arreglo[minimo]) {
                 minimo = j;
             }
         }
         if (minimo != i) {
-            T temp = arreglo[i];
-            arreglo[i] = arreglo[minimo];
-            arreglo[minimo] = temp;
+            std::swap(arreglo[i], arreglo[minimo]);
         }
     }
 }
@@ -25,54 +24,47 @@ void ordenar(Array<T>& arreglo) {
 // Función de ordenamiento genérica con comparador customizado
 template <typename T, typename Comparador>
 void ordenar(Array<T>& arreglo, Comparador comp) {
-    int n = arreglo.size();
-    for (int i = 0; i < n - 1; ++i) {
-        int minimo = i;
-        for (int j = i + 1; j < n; ++j) {
+    const std::size_t n = arreglo.size();
+    for (std::size_t i = 0; i < n; ++i) {
+        std::size_t minimo = i;
+        for (std::size_t j = i + 1; j < n; ++j) {
             if (comp(arreglo[j], arreglo[minimo])) {
                 minimo = j;
             }
         }
         if (minimo != i) {
-            T temp = arreglo[i];
-            arreglo[i] = arreglo[minimo];
-            arreglo[minimo] = temp;
+            std::swap(arreglo[i], arreglo[minimo]);
         }
     }
 }
 
-// Versión de ordenamiento rápido (quicksort)
 template <typename T>
-void quickSort(Array<T>& arreglo, int izquierda = 0, int derecha = -1) {
-    if (derecha == -1) {
-        derecha = arreglo.size() - 1;
-    }
-    
+void quickSortRange(Array<T>& arreglo, std::ptrdiff_t izquierda, std::ptrdiff_t derecha) {
     if (izquierda < derecha) {
-        int pi = particion(arreglo, izquierda, derecha);
-        quickSort(arreglo, izquierda, pi - 1);
-        quickSort(arreglo, pi + 1, derecha);
+        const T pivote = arreglo[static_cast<std::size_t>(derecha)];
+        std::ptrdiff_t i = izquierda - 1;
+
+        for (std::ptrdiff_t j = izquierda; j < derecha; ++j) {
+            if (arreglo[static_cast<std::size_t>(j)] < pivote) {
+                ++i;
+                std::swap(arreglo[static_cast<std::size_t>(i)],
+                          arreglo[static_cast<std::size_t>(j)]);
+            }
+        }
+
+        const std::ptrdiff_t pivote_indice = i + 1;
+        std::swap(arreglo[static_cast<std::size_t>(pivote_indice)],
+                  arreglo[static_cast<std::size_t>(derecha)]);
+        quickSortRange(arreglo, izquierda, pivote_indice - 1);
+        quickSortRange(arreglo, pivote_indice + 1, derecha);
     }
 }
 
-// Función auxiliar para quicksort
 template <typename T>
-int particion(Array<T>& arreglo, int izquierda, int derecha) {
-    T pivote = arreglo[derecha];
-    int i = izquierda - 1;
-    
-    for (int j = izquierda; j < derecha; ++j) {
-        if (arreglo[j] < pivote) {
-            ++i;
-            T temp = arreglo[i];
-            arreglo[i] = arreglo[j];
-            arreglo[j] = temp;
-        }
+void quickSort(Array<T>& arreglo) {
+    if (arreglo.size() < 2) {
+        return;
     }
-    
-    T temp = arreglo[i + 1];
-    arreglo[i + 1] = arreglo[derecha];
-    arreglo[derecha] = temp;
-    
-    return i + 1;
+
+    quickSortRange(arreglo, 0, static_cast<std::ptrdiff_t>(arreglo.size() - 1));
 }

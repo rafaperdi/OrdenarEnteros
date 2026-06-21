@@ -21,13 +21,6 @@ set(BUILD_GMOCK OFF CACHE BOOL "")
 
 FetchContent_MakeAvailable(googletest)
 
-# ============================================================================
-# Habilitar Testing
-# ============================================================================
-
-enable_testing()
-
-# ============================================================================
 # Crear Ejecutables de Tests
 # ============================================================================
 
@@ -84,11 +77,29 @@ endif()
 add_test(NAME ArrayTests COMMAND test_array)
 
 # ============================================================================
+# Test para los algoritmos de ordenamiento
+add_executable(test_sorting test_sorting.cpp)
+target_link_libraries(test_sorting
+    PRIVATE
+        ordenamiento_lib
+        GTest::gtest_main
+)
+target_compile_features(test_sorting PRIVATE cxx_std_17)
+
+if(MSVC)
+    target_compile_options(test_sorting PRIVATE /W4)
+else()
+    target_compile_options(test_sorting PRIVATE -Wall -Wextra)
+endif()
+
+add_test(NAME SortingTests COMMAND test_sorting)
+
+# ============================================================================
 # Configuración de Salida
 # ============================================================================
 
 # Colocar ejecutables de tests en directorio específico
-set_target_properties(test_complex test_array PROPERTIES
+set_target_properties(test_complex test_array test_sorting PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests
 )
 

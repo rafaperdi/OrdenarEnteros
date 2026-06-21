@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar Windows Release",
+      "type": "shell",
+      "command": "${workspaceFolder}\\build_windows_portable.cmd",
+      "args": [
+        "Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Compilar Windows Debug",
+      "type": "shell",
+      "command": "${workspaceFolder}\\build_windows_portable.cmd",
+      "args": [
+        "Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    }
+  ]
+}

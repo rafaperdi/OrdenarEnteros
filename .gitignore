@@ -1,0 +1,6 @@
+# CMake build outputs
+/build*/
+/src/build/
+
+# Local diagnostics
+/debug.log
