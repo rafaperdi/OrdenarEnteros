@@ -1,8 +1,23 @@
 {
-  "cmake.useCMakePresets": "always",
-  "cmake.configureOnOpen": false,
+  "cmake.cmakePath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe",
+  "cmake.useCMakePresets": "never",
+  "cmake.configureOnOpen": true,
+  "cmake.generator": "Visual Studio 18 2026",
+  "cmake.platform": "x64",
+  "cmake.buildDirectory": "${workspaceFolder}/out/build/vscode",
+  "cmake.configureArgs": [
+    "-DBUILD_SHARED_LIBS=OFF",
+    "-DBUILD_TESTING=ON",
+    "-DMSVC_STATIC_RUNTIME=ON",
+    "-DORDENARENT_BUILD_APP=ON",
+    "-DORDENARENT_BUILD_EXAMPLES=ON",
+    "-DORDENARENT_ENABLE_IPO=ON",
+    "-DORDENARENT_NATIVE_OPTIMIZATION=OFF"
+  ],
   "cmake.options.statusBarVisibility": "visible",
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "testMate.cpp.discovery.loadOnStartup": true,
+  "testMate.cpp.test.executables": "out/build/vscode/bin/tests/test_*.exe",
   "files.associations": {
     "*.h": "cpp"
   }

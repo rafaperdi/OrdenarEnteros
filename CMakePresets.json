@@ -9,6 +9,11 @@
     {
       "name": "base",
       "hidden": true,
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
@@ -16,6 +21,68 @@
         "ORDENARENT_BUILD_EXAMPLES": "ON",
         "ORDENARENT_ENABLE_IPO": "ON",
         "ORDENARENT_NATIVE_OPTIMIZATION": "OFF"
+      }
+    },
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "MSVC_STATIC_RUNTIME": "ON",
+        "ORDENARENT_BUILD_APP": "ON",
+        "ORDENARENT_BUILD_EXAMPLES": "ON",
+        "ORDENARENT_ENABLE_IPO": "ON",
+        "ORDENARENT_NATIVE_OPTIMIZATION": "OFF"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows x64 - Debug",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "windows-dev",
+      "displayName": "Windows x64 - RelWithDebInfo + tests",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows x64 - Release portable",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "windows-release-shared",
+      "displayName": "Windows x64 - Release DLL",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON",
+        "BUILD_TESTING": "OFF",
+        "MSVC_STATIC_RUNTIME": "OFF"
+      }
+    },
+    {
+      "name": "windows-tests",
+      "displayName": "Windows x64 - Debug + tests",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -71,35 +138,146 @@
   ],
   "buildPresets": [
     {
+      "name": "windows-debug",
+      "configurePreset": "windows-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "Debug",
+      "jobs": 0
+    },
+    {
+      "name": "windows-dev",
+      "configurePreset": "windows-dev",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "RelWithDebInfo",
+      "jobs": 0
+    },
+    {
+      "name": "windows-release",
+      "configurePreset": "windows-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "Release",
+      "jobs": 0
+    },
+    {
+      "name": "windows-release-shared",
+      "configurePreset": "windows-release-shared",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "Release",
+      "jobs": 0
+    },
+    {
+      "name": "windows-tests",
+      "configurePreset": "windows-tests",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "Debug",
+      "jobs": 0
+    },
+    {
       "name": "debug",
       "configurePreset": "debug",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "jobs": 0
     },
     {
       "name": "dev",
       "configurePreset": "dev",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "jobs": 0
     },
     {
       "name": "release",
       "configurePreset": "release",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "jobs": 0
     },
     {
       "name": "release-shared",
       "configurePreset": "release-shared",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "jobs": 0
     },
     {
       "name": "tests",
       "configurePreset": "tests",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "jobs": 0
     }
   ],
   "testPresets": [
     {
+      "name": "windows-dev",
+      "configurePreset": "windows-dev",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "RelWithDebInfo",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-tests",
+      "configurePreset": "windows-tests",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
       "name": "dev",
       "configurePreset": "dev",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "output": {
         "outputOnFailure": true
       }
@@ -107,6 +285,11 @@
     {
       "name": "tests",
       "configurePreset": "tests",
+      "condition": {
+        "type": "notEquals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "output": {
         "outputOnFailure": true
       }
