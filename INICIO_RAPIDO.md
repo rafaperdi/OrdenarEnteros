@@ -1,114 +1,49 @@
-# Inicio rapido - OrdenarEnteros
+# Inicio rápido
 
-Esta guia contiene el camino mas corto para compilar y ejecutar el proyecto.
-Para todas las opciones y la solucion de problemas, consulta
-[GUIA_COMPILACION.md](GUIA_COMPILACION.md).
+## Windows
 
-## Windows: compilacion recomendada
-
-Requisitos:
-
-- Visual Studio Community 2026 instalado en
-  `C:\Program Files\Microsoft Visual Studio\18\Community`
-- Componente de desarrollo de escritorio con C++
-- CMake y Ninja incluidos con Visual Studio
-
-Desde PowerShell o `cmd.exe`, en la raiz del proyecto:
+Instala Visual Studio con **Desarrollo de escritorio con C++** y ejecuta:
 
 ```powershell
-.\build_windows_portable.cmd
+.\build_windows_portable.cmd Release x64
+.\out\build\windows-x64-release\bin\OrdenarEnteros.exe
 ```
 
-El script genera una compilacion `Release` para Windows x64 con:
+No hace falta añadir CMake a mano al `PATH`: el script detecta Visual Studio
+Community/Professional/Enterprise, carga MSVC y usa su CMake, Ninja y vcpkg.
 
-- libreria estatica
-- runtime de MSVC estatico
-- ejemplos incluidos
-- tests unitarios deshabilitados
-
-Segun el generador guardado en la carpeta de compilacion, el ejecutable estara
-en una de estas rutas:
-
-```text
-build_windows_portable\bin\Release\OrdenarEnteros.exe
-build_windows_portable\bin\OrdenarEnteros.exe
-```
-
-Para localizarlo y ejecutarlo desde PowerShell:
+Tests:
 
 ```powershell
-$exe = Get-ChildItem .\build_windows_portable\bin -Recurse -Filter OrdenarEnteros.exe |
-    Select-Object -First 1
-& $exe.FullName
+.\build_windows_portable.cmd Debug x64 --tests
 ```
 
-## Linux: compilacion recomendada
+## Linux
 
-Requisitos:
-
-- CMake 3.10 o posterior
-- compilador compatible con C++17, como GCC o Clang
-- Git y acceso a Internet si se compilan los tests por primera vez
+Requiere CMake 3.21+, un compilador C++17 y, preferiblemente, Ninja.
 
 ```bash
-cmake -S . -B build_linux \
-  -DTARGET_PLATFORM=Linux \
-  -DBUILD_SHARED_LIBS=ON \
-  -DBUILD_TESTS=OFF \
-  -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build_linux --parallel
-./build_linux/bin/OrdenarEnteros
+chmod +x build.sh run_tests.sh
+./build.sh release
+./out/build/release/bin/OrdenarEnteros
 ```
 
-## Compilar y ejecutar tests
-
-Google Test se descarga durante la primera configuracion, por lo que este paso
-requiere acceso a Internet si aun no esta almacenado localmente.
-
-### Windows con Visual Studio
-
-Ejecuta los comandos desde un Developer PowerShell o Developer Command Prompt:
-
-```powershell
-cmake -S . -B build_tests -A x64 `
-  -DTARGET_PLATFORM=Windows `
-  -DBUILD_SHARED_LIBS=OFF `
-  -DBUILD_TESTS=ON
-
-cmake --build build_tests --config Release --parallel
-ctest --test-dir build_tests -C Release --output-on-failure
-```
-
-### Linux
+Tests:
 
 ```bash
-cmake -S . -B build_tests \
-  -DTARGET_PLATFORM=Linux \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DBUILD_TESTS=ON \
-  -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build_tests --parallel
-ctest --test-dir build_tests --output-on-failure
+./run_tests.sh
 ```
 
-## Error de generador de CMake
+## Variantes útiles
 
-Una carpeta de compilacion solo puede pertenecer a un generador. Por ejemplo,
-no se puede reutilizar una carpeta creada con Visual Studio usando Ninja.
-
-El script `build_windows_portable.cmd` reutiliza automaticamente el generador
-guardado. Para comandos manuales, usa una carpeta diferente para cada
-generador:
-
-```text
-build_msvc
-build_ninja
-build_linux
-build_tests
+```bash
+./build.sh debug
+./build.sh dev
+./build.sh release-shared
+./build.sh release -DORDENARENT_NATIVE_OPTIMIZATION=ON
 ```
 
-Si aparece el mensaje `Does not match the generator used previously`, consulta
-la seccion de solucion de problemas de
-[GUIA_COMPILACION.md](GUIA_COMPILACION.md).
+La optimización nativa solo debe usarse cuando el binario vaya a ejecutarse en
+la misma CPU o en una compatible.
+
+Más detalles: [GUIA_COMPILACION.md](GUIA_COMPILACION.md).

@@ -2,15 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Depurar OrdenarEnteros (Windows/MSVC)",
-      "type": "cppvsdbg",
+      "name": "Depurar OrdenarEnteros",
+      "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}\\build_windows_portable\\bin\\Debug\\OrdenarEnteros.exe",
+      "program": "${workspaceFolder}/out/build/debug/bin/OrdenarEnteros",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "Compilar Windows Debug"
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "preLaunchTask": "Compilar Debug portable",
+      "windows": {
+        "type": "cppvsdbg",
+        "program": "${workspaceFolder}\\out\\build\\windows-x64-debug\\bin\\OrdenarEnteros.exe"
+      }
     }
   ]
 }

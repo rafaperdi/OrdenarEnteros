@@ -1,126 +1,48 @@
-cmake_minimum_required(VERSION 3.10)
+find_package(GTest CONFIG QUIET)
 
-# ============================================================================
-# Descarga e incluye Google Test
-# ============================================================================
-
-include(FetchContent)
-
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.14.0  # Versión estable de Google Test
-)
-
-# No compilar los tests de Google Test
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
-
-# Evitar mensajes de advertencia
-set(BUILD_GMOCK OFF CACHE BOOL "")
-
-FetchContent_MakeAvailable(googletest)
-
-# Crear Ejecutables de Tests
-# ============================================================================
-
-# Test para la clase Complex
-add_executable(test_complex test_complex.cpp)
-target_link_libraries(test_complex 
-    PRIVATE 
-        ordenamiento_lib
-        GTest::gtest_main
-)
-
-target_include_directories(test_complex
-    PRIVATE 
-        ${CMAKE_SOURCE_DIR}/lib/include
-)
-
-target_compile_features(test_complex PRIVATE cxx_std_17)
-
-# Configurar opciones de compilación
-if(MSVC)
-    target_compile_options(test_complex PRIVATE /W4)
-else()
-    target_compile_options(test_complex PRIVATE -Wall -Wextra)
+if(NOT GTest_FOUND)
+    include(FetchContent)
+    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+    set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+    if(MSVC AND NOT MSVC_STATIC_RUNTIME)
+        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    endif()
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.17.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(googletest)
 endif()
 
-# Registrar el test
-add_test(NAME ComplexTests COMMAND test_complex)
+include(GoogleTest)
 
-# ============================================================================
+function(ordenar_add_test target_name source_file)
+    add_executable("${target_name}" "${source_file}")
+    target_link_libraries(
+        "${target_name}"
+        PRIVATE
+            OrdenarEnteros::ordenamiento_lib
+            GTest::gtest_main
+    )
+    ordenar_configure_target("${target_name}")
+    set_target_properties(
+        "${target_name}"
+        PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${ORDENARENT_RUNTIME_OUTPUT_DIRECTORY}/tests"
+    )
+    foreach(config Debug Release RelWithDebInfo MinSizeRel)
+        string(TOUPPER "${config}" config_upper)
+        set_target_properties(
+            "${target_name}"
+            PROPERTIES
+                RUNTIME_OUTPUT_DIRECTORY_${config_upper} "${ORDENARENT_RUNTIME_OUTPUT_DIRECTORY}/tests"
+        )
+    endforeach()
+    gtest_discover_tests("${target_name}" DISCOVERY_TIMEOUT 30)
+endfunction()
 
-# Test para la clase Array
-add_executable(test_array test_array.cpp)
-target_link_libraries(test_array
-    PRIVATE
-        ordenamiento_lib
-        GTest::gtest_main
-)
-
-target_include_directories(test_array
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/lib/include
-)
-
-target_compile_features(test_array PRIVATE cxx_std_17)
-
-# Configurar opciones de compilación
-if(MSVC)
-    target_compile_options(test_array PRIVATE /W4)
-else()
-    target_compile_options(test_array PRIVATE -Wall -Wextra)
-endif()
-
-# Registrar el test
-add_test(NAME ArrayTests COMMAND test_array)
-
-# ============================================================================
-# Test para los algoritmos de ordenamiento
-add_executable(test_sorting test_sorting.cpp)
-target_link_libraries(test_sorting
-    PRIVATE
-        ordenamiento_lib
-        GTest::gtest_main
-)
-target_compile_features(test_sorting PRIVATE cxx_std_17)
-
-if(MSVC)
-    target_compile_options(test_sorting PRIVATE /W4)
-else()
-    target_compile_options(test_sorting PRIVATE -Wall -Wextra)
-endif()
-
-add_test(NAME SortingTests COMMAND test_sorting)
-
-# ============================================================================
-# Configuración de Salida
-# ============================================================================
-
-# Colocar ejecutables de tests en directorio específico
-set_target_properties(test_complex test_array test_sorting PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests
-)
-
-# ============================================================================
-# Instrucciones
-# ============================================================================
-
-message(STATUS "")
-message(STATUS "╔════════════════════════════════════════════════════════════════╗")
-message(STATUS "║                   Google Test Configurado                      ║")
-message(STATUS "╠════════════════════════════════════════════════════════════════╣")
-message(STATUS "║ Para ejecutar TODOS los tests:                                ║")
-message(STATUS "║   ctest --output-on-failure                                   ║")
-message(STATUS "║   o                                                           ║")
-message(STATUS "║   cmake --build . --target test                               ║")
-message(STATUS "║                                                              ║")
-message(STATUS "║ Para ejecutar tests individuales:                             ║")
-message(STATUS "║   ./bin/tests/test_complex                                    ║")
-message(STATUS "║   ./bin/tests/test_array                                      ║")
-message(STATUS "║                                                              ║")
-message(STATUS "║ Para ejecutar un test específico:                             ║")
-message(STATUS "║   ./bin/tests/test_complex --gtest_filter=ComplexTest.*       ║")
-message(STATUS "╚════════════════════════════════════════════════════════════════╝")
-message(STATUS "")
+ordenar_add_test(test_array test_array.cpp)
+ordenar_add_test(test_complex test_complex.cpp)
+ordenar_add_test(test_sorting test_sorting.cpp)

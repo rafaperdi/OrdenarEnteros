@@ -47,7 +47,7 @@ int main() {
     std::cout << "Antes: ";
     enteros.print();
     ordenar(enteros);
-    std::cout << "Después (Selection Sort Ascendente): ";
+    std::cout << "Después (orden ascendente): ";
     enteros.print();
     std::cout << std::endl;
 
@@ -57,7 +57,7 @@ int main() {
     std::cout << "Antes: ";
     decimales.print();
     ordenar(decimales);
-    std::cout << "Después (Selection Sort Ascendente): ";
+    std::cout << "Después (orden ascendente): ";
     decimales.print();
     std::cout << std::endl;
 
@@ -67,7 +67,7 @@ int main() {
     std::cout << "Antes: ";
     palabras.print();
     ordenar(palabras);
-    std::cout << "Después (Selection Sort Alfabético): ";
+    std::cout << "Después (orden alfabético): ";
     palabras.print();
     std::cout << std::endl;
 

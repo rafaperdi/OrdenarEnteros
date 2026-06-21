@@ -1,6 +1,10 @@
 # CMake build outputs
 /build*/
 /src/build/
+/out/
+
+# CMake local presets and generated package files
+/CMakeUserPresets.json
 
 # Local diagnostics
 /debug.log

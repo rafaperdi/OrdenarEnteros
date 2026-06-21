@@ -1,12 +1,15 @@
 #include <gtest/gtest.h>
-#include "../lib/include/array.h"
+
+#include "array.h"
+
+#include <string>
 
 // ============================================================================
 // Pruebas de Constructor
 // ============================================================================
 
 TEST(ArrayTest, DefaultConstructor) {
-    Array<int> arr({});
+    Array<int> arr;
     EXPECT_EQ(arr.size(), 0);
 }
 

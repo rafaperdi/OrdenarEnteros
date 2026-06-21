@@ -1,297 +1,145 @@
-# OrdenarEnteros - Librería de ordenamiento configurable
+# OrdenarEnteros
 
-Proyecto profesional de C++ con algoritmos de ordenamiento genéricos usando **Templates**. Permite compilar como librería dinámica o estática, y configurable para Windows o Linux.
+Biblioteca educativa en C++17 con un contenedor `Array<T>`, algoritmos de
+ordenamiento genéricos y una clase `Complex`. El mismo proyecto CMake compila
+de forma nativa en Windows y Linux; no es necesario indicar manualmente la
+plataforma.
 
-## 🎯 Características
+## Inicio rápido
 
-✨ **Templates Genéricos**: Funciona con cualquier tipo de dato primitivo, strings y objetos customizados
-🔄 **Múltiples Algoritmos**: Selection Sort y Quick Sort
-⚙️ **Comparadores Customizados**: Permite ordenar por diferentes criterios
-📦 **Librería Dinámica/Estática**: Configurable en CMake
-🖥️ **Multiplataforma**: Compilable para Linux y Windows
-🔧 **Fácil de Usar**: API simple y clara
+### Windows
 
-## 📁 Estructura del Proyecto
-
-```
-OrdenarEnteros/
-├── CMakeLists.txt                    # Configuración raíz (opciones de compilación)
-├── README.md
-│
-├── lib/                              # Librería de ordenamiento
-│   ├── CMakeLists.txt
-│   ├── include/
-│   │   ├── array.h                   # Template Array<T>
-│   │   └── sorting.h                 # Funciones de ordenamiento
-│   └── src/
-│       └── sorting.cpp               # Instantiación de templates
-│
-└── app/                              # Aplicación de prueba
-    ├── CMakeLists.txt
-    └── main.cpp                      # Pruebas exhaustivas
-
-build/                                # Directorio de compilación
-├── bin/                              # Ejecutables generados
-└── lib/                              # Librerías generadas
-```
-
-## Compilación
-
-La guía breve está en [INICIO_RAPIDO.md](INICIO_RAPIDO.md) y todas las
-variantes, rutas de salida y soluciones a errores están documentadas en
-[GUIA_COMPILACION.md](GUIA_COMPILACION.md).
-
-### Windows recomendado
-
-Desde PowerShell o `cmd.exe`:
+Requiere Visual Studio Community, Professional o Enterprise con la carga de
+trabajo **Desarrollo de escritorio con C++**.
 
 ```powershell
-.\build_windows_portable.cmd
+.\build_windows_portable.cmd Release x64
+.\out\build\windows-x64-release\bin\OrdenarEnteros.exe
 ```
 
-Este script compila para Windows x64 en `Release`, con librería estática,
-runtime estático de MSVC, ejemplos incluidos y tests deshabilitados.
+El script localiza Visual Studio con `vswhere`, inicializa MSVC y añade al
+`PATH` del proceso CMake, Ninja y vcpkg cuando están disponibles. No modifica
+permanentemente el `PATH` del sistema.
 
-Con la carpeta actualmente configurada mediante Visual Studio, el ejecutable
-queda en:
-
-```powershell
-.\build_windows_portable\bin\Release\OrdenarEnteros.exe
-```
-
-Si el script crea la carpeta mediante Ninja, queda en:
-
-```powershell
-.\build_windows_portable\bin\OrdenarEnteros.exe
-```
-
-### Linux recomendado
+### Linux
 
 ```bash
-cmake -S . -B build_linux \
-  -DTARGET_PLATFORM=Linux \
-  -DBUILD_SHARED_LIBS=ON \
-  -DBUILD_TESTS=OFF \
-  -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build_linux --parallel
-./build_linux/bin/OrdenarEnteros
+./build.sh release
+./out/build/release/bin/OrdenarEnteros
 ```
 
-### Tests
+El script prefiere Ninja si está instalado; en caso contrario utiliza el
+generador predeterminado de CMake.
 
-Los tests usan Google Test. La primera configuración con `BUILD_TESTS=ON`
-requiere Git y acceso a Internet.
-
-Windows con Visual Studio:
-
-```powershell
-cmake -S . -B build_tests -A x64 `
-  -DTARGET_PLATFORM=Windows `
-  -DBUILD_SHARED_LIBS=OFF `
-  -DBUILD_TESTS=ON
-
-cmake --build build_tests --config Release --parallel
-ctest --test-dir build_tests -C Release --output-on-failure
-```
-
-Linux:
+También se pueden usar directamente los presets:
 
 ```bash
-cmake -S . -B build_tests \
-  -DTARGET_PLATFORM=Linux \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DBUILD_TESTS=ON \
-  -DCMAKE_BUILD_TYPE=Release
-
-cmake --build build_tests --parallel
-ctest --test-dir build_tests --output-on-failure
+cmake --preset release
+cmake --build --preset release
 ```
 
-### Importante: generadores de CMake
+## Perfiles disponibles
 
-No reutilices una carpeta de compilación con generadores distintos. Por
-ejemplo, una carpeta creada con Visual Studio no puede reconfigurarse con
-Ninja. Usa carpetas separadas como `build_msvc`, `build_ninja` y
-`build_tests`.
+| Perfil | Uso |
+|---|---|
+| `debug` | Desarrollo sin optimizaciones |
+| `dev` | `RelWithDebInfo` con tests |
+| `release` | Release, biblioteca estática y optimización portable |
+| `release-shared` | Release con `.dll` o `.so` |
+| `tests` | Debug con todos los tests |
 
-## 📚 Ejemplos de Uso
+Windows ofrece las mismas variantes mediante argumentos:
 
-### 1. Ordenar Integers
+```powershell
+.\build_windows_portable.cmd Debug x64 --tests
+.\build_windows_portable.cmd Release arm64 --shared
+.\build_windows_portable.cmd Release x64 --native
+```
+
+`--native` puede mejorar el rendimiento en el equipo local, pero produce un
+binario menos portable. Release ya habilita IPO/LTO automáticamente cuando el
+compilador lo soporta.
+
+## Tests
+
+El proyecto contiene 75 casos de Google Test para `Array`, `Complex` y los
+algoritmos de ordenamiento.
+
+```powershell
+# Windows
+.\build_windows_portable.cmd Debug x64 --tests
+```
+
+```bash
+# Linux
+./run_tests.sh
+```
+
+CMake intenta primero localizar Google Test instalado, por ejemplo mediante
+vcpkg. Si no lo encuentra, descarga v1.17.0 durante la primera configuración.
+
+## Uso
+
 ```cpp
 #include "array.h"
 #include "sorting.h"
 
-Array<int> numeros{8, 3, 5, 1, 9, 2, 7, 4};
-ordenar(numeros);
-numeros.print();  // [1, 2, 3, 4, 5, 7, 8, 9]
+#include <functional>
+
+Array<int> values{8, 3, 5, 1, 9};
+ordenar(values);
+ordenar(values, std::greater<>{});
+values.print();
 ```
 
-### 2. Ordenar Strings
-```cpp
-Array<std::string> palabras{"zebra", "apple", "mango"};
-ordenar(palabras);
-palabras.print();  // [apple, mango, zebra]
-```
+`ordenar` y `quickSort` usan `std::sort`, cuyo algoritmo introspectivo ofrece
+`O(n log n)` en el peor caso. `selectionSort` permanece disponible de forma
+explícita para demostraciones educativas.
 
-### 3. Ordenar Objetos Customizados
-```cpp
-class Persona {
-public:
-    std::string nombre;
-    int edad;
-    
-    bool operator<(const Persona& otro) const {
-        return edad < otro.edad;
-    }
-};
+`Array<T>` proporciona `begin`, `end`, `data`, `at`, `operator[]`, `size` y
+`empty`, por lo que se integra con los algoritmos estándar.
 
-Array<Persona> personas{
-    Persona("Alice", 30),
-    Persona("Bob", 25)
-};
+## Opciones CMake
 
-ordenar(personas);  // Ordena por edad
-```
+| Opción | Predeterminado | Descripción |
+|---|---:|---|
+| `BUILD_SHARED_LIBS` | `OFF` en presets | Biblioteca estática o compartida |
+| `BUILD_TESTING` | `OFF` | Compilar tests |
+| `ORDENARENT_BUILD_APP` | `ON` | Compilar la aplicación |
+| `ORDENARENT_BUILD_EXAMPLES` | `ON` | Compilar ejemplos |
+| `ORDENARENT_ENABLE_IPO` | `ON` | IPO/LTO en configuraciones optimizadas |
+| `ORDENARENT_NATIVE_OPTIMIZATION` | `OFF` | Optimizar para la CPU local |
+| `ORDENARENT_ENABLE_SANITIZERS` | `OFF` | ASan y UBSan con GCC/Clang |
+| `ORDENARENT_WARNINGS_AS_ERRORS` | `OFF` | Tratar warnings como errores |
+| `MSVC_STATIC_RUNTIME` | `OFF` | Usar `/MT` con MSVC |
 
-### 4. Usar Comparador Personalizado
-```cpp
-struct ComparadorPorNombre {
-    bool operator()(const Persona& a, const Persona& b) const {
-        return a.nombre < b.nombre;
-    }
-};
+Para cross-compilar se debe usar un archivo toolchain de CMake; no se simula
+otra plataforma mediante una variable.
 
-ordenar(personas, ComparadorPorNombre());  // Ordena por nombre
-```
+## Instalar y reutilizar
 
-### 5. Orden Descendente
-```cpp
-template <typename T>
-struct Descendente {
-    bool operator()(const T& a, const T& b) const {
-        return a > b;
-    }
-};
-
-ordenar(numeros, Descendente<int>());  // Descendente
-```
-
-### 6. Usar QuickSort
-```cpp
-Array<int> numeros{8, 3, 5, 1, 9};
-quickSort(numeros);
-```
-
-## 🧪 Pruebas Incluidas
-
-El programa `main.cpp` incluye 8 pruebas exhaustivas:
-
-1. ✅ Selection Sort de Integers (ascendente)
-2. ✅ Selection Sort de Doubles (ascendente)
-3. ✅ Selection Sort de Strings (alfabético)
-4. ✅ Ordenamiento de objetos Persona por edad
-5. ✅ Ordenamiento de objetos Persona por nombre
-6. ✅ Ordenamiento de Integers (descendente)
-7. ✅ Ordenamiento de Strings (descendente)
-8. ✅ QuickSort de Integers
-
-Ejecutar:
 ```bash
-./build/bin/OrdenarEnteros
+cmake --install out/build/release --prefix out/install
 ```
 
-## 📝 Variables CMake Disponibles
+Desde otro proyecto CMake:
 
-| Variable | Valor Default | Opciones | Descripción |
-|----------|---------------|----------|-------------|
-| `BUILD_SHARED_LIBS` | `ON` | `ON` / `OFF` | Librería dinámica o estática |
-| `TARGET_PLATFORM` | `Linux` | `Linux` / `Windows` | Plataforma destino |
-| `BUILD_TESTS` | `ON` | `ON` / `OFF` | Compilar tests con Google Test |
-| `MSVC_STATIC_RUNTIME` | `OFF` | `ON` / `OFF` | Usar runtime estático de MSVC (`/MT`) |
-| `CMAKE_BUILD_TYPE` | Sin valor | `Debug` / `Release` | Modo para Ninja, Makefiles y otros generadores de una configuración |
-| `EXECUTABLE_OUTPUT_DIR` | `build/bin` | Ruta personalizada | Salida de ejecutables |
-| `LIBRARY_OUTPUT_DIR` | `build/lib` | Ruta personalizada | Salida de librerías |
-
-## 🔧 API de la Librería
-
-### Clase: `Array<T>`
-
-```cpp
-class Array {
-public:
-    Array(std::initializer_list<T> valores);
-    
-    size_t size() const noexcept;
-    T& operator[](size_t indice);
-    const T& operator[](size_t indice) const;
-    void print() const;
-};
-```
-
-### Funciones: Ordenamiento
-
-```cpp
-// Selection Sort - comparación por defecto
-template <typename T>
-void ordenar(Array<T>& arreglo);
-
-// Selection Sort - comparador personalizado
-template <typename T, typename Comparador>
-void ordenar(Array<T>& arreglo, Comparador comp);
-
-// Quick Sort
-template <typename T>
-void quickSort(Array<T>& arreglo, int izquierda = 0, int derecha = -1);
-```
-
-## 🔗 Enlazado con la Librería
-
-Si deseas usar esta librería en otros proyectos:
-
-### Enlazado Dinámico (Runtime)
 ```cmake
-find_library(ORDENAMIENTO_LIB ordenamiento_lib PATHS /ruta/a/lib)
-target_link_libraries(tu_proyecto PRIVATE ${ORDENAMIENTO_LIB})
+find_package(OrdenarEnteros CONFIG REQUIRED)
+target_link_libraries(mi_programa PRIVATE OrdenarEnteros::ordenamiento_lib)
 ```
 
-### Enlazado Estático (Compile-time)
-```cmake
-target_link_libraries(tu_proyecto PRIVATE /ruta/a/libordenamiento_lib.a)
-```
+Configura `CMAKE_PREFIX_PATH` con la ruta de instalación si no es una ubicación
+estándar.
 
-## 📋 Requerimientos
+## Estructura
 
-- **CMake**: 3.10 o superior
-- **C++**: C++17 o superior
-- **Tests**: Git y acceso a Internet durante la primera descarga de Google Test
-- **Compilador**:
-  - Linux: GCC 7.0+ o Clang 5.0+
-  - Windows: MSVC con herramientas de desarrollo de escritorio con C++
+- `lib/`: biblioteca y cabeceras públicas.
+- `app/`: aplicación de demostración.
+- `examples/`: cuatro ejemplos independientes.
+- `tests/`: pruebas de Google Test.
+- `src/`: versión histórica independiente, no forma parte del build raíz.
+- `CMakePresets.json`: perfiles portables.
 
-## 🎓 Conceptos Implementados
-
-- ✅ Templates genéricos en C++
-- ✅ Programación orientada a objetos
-- ✅ Compilación condicional con CMake
-- ✅ Librerías compartidas/dinámicas
-- ✅ Librerías estáticas
-- ✅ Compilación multiplataforma
-- ✅ Optimizaciones específicas de plataforma
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y educativo.
-
-## 👨‍💻 Uso en la Industria
-
-Esta estructura es similar a la de proyectos profesionales reales:
-- **Separación librería/aplicación**: Fácil mantenimiento
-- **Compilación configurable**: Requisito común en DevOps
-- **Soporte multiplataforma**: Esencial para distribución
-- **Templates**: Estándar en C++ moderno
-
----
-
-**¡Listo para usar! Compila, prueba y distribuye tu librería.** 🚀
-
+Consulta [INICIO_RAPIDO.md](INICIO_RAPIDO.md) para el camino corto y
+[GUIA_COMPILACION.md](GUIA_COMPILACION.md) para todas las opciones.

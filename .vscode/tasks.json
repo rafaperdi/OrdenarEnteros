@@ -2,33 +2,74 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Compilar Windows Release",
+      "label": "Compilar Release portable",
       "type": "shell",
-      "command": "${workspaceFolder}\\build_windows_portable.cmd",
+      "command": "${workspaceFolder}/build.sh",
       "args": [
-        "Release"
+        "release"
       ],
+      "windows": {
+        "command": "${workspaceFolder}\\build_windows_portable.cmd",
+        "args": [
+          "Release",
+          "x64"
+        ]
+      },
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": "$msCompile",
+      "problemMatcher": [
+        "$gcc",
+        "$msCompile"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
       }
     },
     {
-      "label": "Compilar Windows Debug",
+      "label": "Compilar Debug portable",
       "type": "shell",
-      "command": "${workspaceFolder}\\build_windows_portable.cmd",
+      "command": "${workspaceFolder}/build.sh",
       "args": [
-        "Debug"
+        "debug"
       ],
+      "windows": {
+        "command": "${workspaceFolder}\\build_windows_portable.cmd",
+        "args": [
+          "Debug",
+          "x64"
+        ]
+      },
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": "$msCompile",
+      "problemMatcher": [
+        "$gcc",
+        "$msCompile"
+      ],
       "group": "build"
+    },
+    {
+      "label": "Compilar y ejecutar tests",
+      "type": "shell",
+      "command": "${workspaceFolder}/run_tests.sh",
+      "windows": {
+        "command": "${workspaceFolder}\\build_windows_portable.cmd",
+        "args": [
+          "Debug",
+          "x64",
+          "--tests"
+        ]
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc",
+        "$msCompile"
+      ],
+      "group": "test"
     }
   ]
 }

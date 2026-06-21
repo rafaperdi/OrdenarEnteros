@@ -1,5 +1,6 @@
 #include <iostream>
-#include "../lib/include/complex.h"
+
+#include "complex.h"
 
 int main() {
     std::cout << "=== Ejemplo de Números Complejos ===" << std::endl << std::endl;

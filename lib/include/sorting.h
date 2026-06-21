@@ -1,70 +1,48 @@
 #pragma once
 
 #include "array.h"
+
 #include <algorithm>
-#include <cstddef>
+#include <functional>
+#include <utility>
 
-// Función de ordenamiento genérica con comparador por defecto
-template <typename T>
-void ordenar(Array<T>& arreglo) {
-    const std::size_t n = arreglo.size();
-    for (std::size_t i = 0; i < n; ++i) {
-        std::size_t minimo = i;
-        for (std::size_t j = i + 1; j < n; ++j) {
-            if (arreglo[j] < arreglo[minimo]) {
-                minimo = j;
-            }
-        }
-        if (minimo != i) {
-            std::swap(arreglo[i], arreglo[minimo]);
-        }
-    }
+// Ordenamiento recomendado. std::sort usa un algoritmo introspectivo con
+// complejidad O(n log n) en el peor caso y suele superar a implementaciones
+// manuales de quicksort.
+template <typename T, typename Compare>
+void ordenar(Array<T>& values, Compare compare) {
+    std::sort(values.begin(), values.end(), std::move(compare));
 }
 
-// Función de ordenamiento genérica con comparador customizado
-template <typename T, typename Comparador>
-void ordenar(Array<T>& arreglo, Comparador comp) {
-    const std::size_t n = arreglo.size();
-    for (std::size_t i = 0; i < n; ++i) {
-        std::size_t minimo = i;
-        for (std::size_t j = i + 1; j < n; ++j) {
-            if (comp(arreglo[j], arreglo[minimo])) {
-                minimo = j;
-            }
-        }
-        if (minimo != i) {
-            std::swap(arreglo[i], arreglo[minimo]);
+template <typename T>
+void ordenar(Array<T>& values) {
+    ordenar(values, std::less<>{});
+}
+
+// Selection sort se conserva con nombre explicito para fines educativos.
+template <typename T, typename Compare>
+void selectionSort(Array<T>& values, Compare compare) {
+    for(auto current = values.begin(); current != values.end(); ++current) {
+        const auto selected = std::min_element(current, values.end(), compare);
+        if(selected != current) {
+            std::iter_swap(current, selected);
         }
     }
 }
 
 template <typename T>
-void quickSortRange(Array<T>& arreglo, std::ptrdiff_t izquierda, std::ptrdiff_t derecha) {
-    if (izquierda < derecha) {
-        const T pivote = arreglo[static_cast<std::size_t>(derecha)];
-        std::ptrdiff_t i = izquierda - 1;
+void selectionSort(Array<T>& values) {
+    selectionSort(values, std::less<>{});
+}
 
-        for (std::ptrdiff_t j = izquierda; j < derecha; ++j) {
-            if (arreglo[static_cast<std::size_t>(j)] < pivote) {
-                ++i;
-                std::swap(arreglo[static_cast<std::size_t>(i)],
-                          arreglo[static_cast<std::size_t>(j)]);
-            }
-        }
-
-        const std::ptrdiff_t pivote_indice = i + 1;
-        std::swap(arreglo[static_cast<std::size_t>(pivote_indice)],
-                  arreglo[static_cast<std::size_t>(derecha)]);
-        quickSortRange(arreglo, izquierda, pivote_indice - 1);
-        quickSortRange(arreglo, pivote_indice + 1, derecha);
-    }
+// API historica: ahora delega en la implementacion robusta de la biblioteca
+// estandar y tambien admite comparadores personalizados.
+template <typename T, typename Compare>
+void quickSort(Array<T>& values, Compare compare) {
+    ordenar(values, std::move(compare));
 }
 
 template <typename T>
-void quickSort(Array<T>& arreglo) {
-    if (arreglo.size() < 2) {
-        return;
-    }
-
-    quickSortRange(arreglo, 0, static_cast<std::ptrdiff_t>(arreglo.size() - 1));
+void quickSort(Array<T>& values) {
+    ordenar(values);
 }

@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
-#include "../lib/include/complex.h"
+
+#include "complex.h"
+
 #include <cmath>
 
 // ============================================================================

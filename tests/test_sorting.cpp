@@ -2,13 +2,13 @@
 
 #include "sorting.h"
 
-TEST(SortingTest, SelectionSortHandlesEmptyArray) {
-    Array<int> values({});
+TEST(SortingTest, SortHandlesEmptyArray) {
+    Array<int> values;
     ordenar(values);
     EXPECT_EQ(values.size(), 0U);
 }
 
-TEST(SortingTest, SelectionSortOrdersValues) {
+TEST(SortingTest, SortOrdersValues) {
     Array<int> values({4, -1, 4, 2, 0});
     ordenar(values);
 
@@ -20,7 +20,7 @@ TEST(SortingTest, SelectionSortOrdersValues) {
 }
 
 TEST(SortingTest, QuickSortHandlesEmptyArray) {
-    Array<int> values({});
+    Array<int> values;
     quickSort(values);
     EXPECT_EQ(values.size(), 0U);
 }
@@ -38,4 +38,31 @@ TEST(SortingTest, QuickSortOrdersValues) {
     for (std::size_t i = 1; i < values.size(); ++i) {
         EXPECT_LE(values[i - 1], values[i]);
     }
+}
+
+TEST(SortingTest, CustomComparatorOrdersDescending) {
+    Array<int> values{1, 5, 2, 4, 3};
+    ordenar(values, std::greater<>{});
+
+    for(std::size_t i = 1; i < values.size(); ++i) {
+        EXPECT_GE(values[i - 1], values[i]);
+    }
+}
+
+TEST(SortingTest, OrdersAlreadySortedAndRepeatedValues) {
+    Array<int> values{-2, -2, 0, 1, 1, 5, 9};
+    ordenar(values);
+
+    for(std::size_t i = 1; i < values.size(); ++i) {
+        EXPECT_LE(values[i - 1], values[i]);
+    }
+}
+
+TEST(SortingTest, SelectionSortRemainsAvailable) {
+    Array<int> values{3, 1, 2};
+    selectionSort(values);
+
+    EXPECT_EQ(values[0], 1);
+    EXPECT_EQ(values[1], 2);
+    EXPECT_EQ(values[2], 3);
 }
